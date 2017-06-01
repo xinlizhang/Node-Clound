@@ -1,0 +1,10 @@
+---
+applications:
+ - name: EvanNodeJs
+   random-route: true
+   memory: 256M
+   # disak_quota: 512M
+   # path: /dev/EvanNodeJs
+   # buildpack: nodejs_buildpack
+   # host: evannodejs001
+   # timeout: 80
