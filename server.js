@@ -1,14 +1,27 @@
 var express = require("express");
+
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var index = require('./routes/index');
+var users = require('./routes/users');
+
 var app = express();
 var cfenv = require("cfenv");
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+app.use(logger('dev'));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
-
+app.use(express.static(path.join(__dirname, 'public')));
 var mydb;
 
 /* Endpoint to greet and add a new visitor to database.
@@ -33,9 +46,14 @@ app.post("/api/visitors", function (request, response) {
     response.send("Hello " + userName + 'Your messages is '+ ages + "! I added you to the database.");
   });
 
-
-
 });
+
+
+app.get('/list', function (req, res) {
+   console.log("主页 GET 请求");
+   res.send('Hello GET');
+})
+
 
 /**
  * Endpoint to get a JSON array of all the visitors in the database
