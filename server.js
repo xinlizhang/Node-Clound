@@ -49,9 +49,6 @@ app.get('/list', function (req, res) {
    res.send('Hello GET');
 });
 
-app.get('/admin', function (req, res) {
-  res.sendFile( __dirname + "/views/admin/index.html" );
-});
 app.get('/process_get', function (req, res) {
  
    // 输出 JSON 格式

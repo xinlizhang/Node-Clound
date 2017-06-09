@@ -32,27 +32,62 @@ router.post("/api/visitors", function (request, response) {
     }
     response.send("Hello " + userName + 'Your messages is '+ ages + "! I added you to the database.");
   });
-
 });
 
 
+
+// router.get("/api/visitors", function (request, response) {
+//   var names = [];
+//   if(!mydb) {
+//     response.json(names);
+//     return;
+//   }
+//   mydb.list({ include_docs: true }, function(err, body) {
+//     if (!err) {
+//       body.rows.forEach(function(row) {
+//         if(row.doc.name)
+//           names.push(row.doc.name + ' messages is ' + row.doc.ages);
+//       });
+//       response.json(names);
+//     }
+//   });
+// });
 
 router.get("/api/visitors", function (request, response) {
   var names = [];
   if(!mydb) {
-    response.json(names);
     return;
   }
-  mydb.list({ include_docs: true }, function(err, body) {
-    if (!err) {
-      body.rows.forEach(function(row) {
-        if(row.doc.name)
-          names.push(row.doc.name + ' messages is ' + row.doc.ages);
-      });
-      response.json(names);
-    }
-  });
+
+
+mydb.find({selector:{name:'ada'}}, function(er, result) {
+	var checkUser = true;
+  if (er) {
+  	throw er;
+  }
+  // response.json(result.docs[0].name);
+  if (typeof(result.docs[0]) != 'undefined') {
+  	response.json(result.docs[0].name);
+  } else {
+  	response.send("No this username! ");
+  }
+  
+  // for (var i = 0; i < result.docs.length; i++) {
+  //   response.json(result.docs[0]._id);
+  // }
+
+
 });
+
+
+
+
+});
+
+
+
+
+
 
 var vcapLocal;
 try {
