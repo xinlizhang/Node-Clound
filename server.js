@@ -1,10 +1,15 @@
 var express = require("express");
 
+var http = require("http");
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var index = require('./routes/index');
+var routes = require('./routes');
 var users = require('./routes/users');
+var admins = require('./routes/admin');
+
+
+
 
 var app = express();
 var cfenv = require("cfenv");
@@ -22,103 +27,50 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')));
-var mydb;
 
-/* Endpoint to greet and add a new visitor to database.
-* Send a POST request to localhost:3000/api/visitors with body
-* {
-* 	"name": "Bob"
-* }
-*/
-app.post("/api/visitors", function (request, response) {
-  var userName = request.body.name;
-  var ages = request.body.ages;
-  if(!mydb) {
-    console.log("No database.");
-    response.send("Hello " + userName + "!" + 'Your messages is '+ ages);
-    return;
-  }
-  // insert the username as a document
-  mydb.insert({ "name" : userName, "ages" : ages}, function(err, body, header) {
-    if (err) {
-      return console.log('[mydb.insert] ', err.message);
-    }
-    response.send("Hello " + userName + 'Your messages is '+ ages + "! I added you to the database.");
-  });
+//加载哪个路由器
+// app.use('/', routes);
+// app.use('/users', users);
+app.use('/admin', admins);
 
+
+
+app.get('/', function(req, res){
+    res.render('index', {title: 'hbs demo', author: 'chyingp'});
+});
+
+
+app.get('/site_num/:id?', function (req, res) {
+ res.render('site_num', {Num: req.query.idn});
 });
 
 
 app.get('/list', function (req, res) {
-   console.log("主页 GET 请求");
    res.send('Hello GET');
-})
+});
 
-
-/**
- * Endpoint to get a JSON array of all the visitors in the database
- * REST API example:
- * <code>
- * GET http://localhost:3000/api/visitors
- * </code>
- *
- * Response:
- * [ "Bob", "Jane" ]
- * @return An array of all the visitor names
- */
-app.get("/api/visitors", function (request, response) {
-  var names = [];
-  if(!mydb) {
-    response.json(names);
-    return;
-  }
-
-  mydb.list({ include_docs: true }, function(err, body) {
-    if (!err) {
-      body.rows.forEach(function(row) {
-        if(row.doc.name)
-          names.push(row.doc.name + ' messages is ' + row.doc.ages);
-      });
-      response.json(names);
-    }
-  });
+app.get('/admin', function (req, res) {
+  res.sendFile( __dirname + "/views/admin/index.html" );
+});
+app.get('/process_get', function (req, res) {
+ 
+   // 输出 JSON 格式
+   var response = {
+       "first_name":req.query.first_name,
+       "last_name":req.query.last_name
+   };
+   console.log(response);
+   res.end(JSON.stringify(response));
 });
 
 
-// load local VCAP configuration  and service credentials
-var vcapLocal;
-try {
-  vcapLocal = require('./vcap-local.json');
-  console.log("Loaded local VCAP", vcapLocal);
-} catch (e) { }
 
-const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
 
-const appEnv = cfenv.getAppEnv(appEnvOpts);
-
-if (appEnv.services['cloudantNoSQLDB']) {
-  // Load the Cloudant library.
-  var Cloudant = require('cloudant');
-
-  // Initialize database with credentials
-  var cloudant = Cloudant(appEnv.services['cloudantNoSQLDB'][0].credentials);
-
-  //database name
-  var dbName = 'mydb';
-
-  // Create a new "mydb" database.
-  cloudant.db.create(dbName, function(err, data) {
-    if(!err) //err if database doesn't already exists
-      console.log("Created database: " + dbName);
-  });
-
-  // Specify the database we are going to use (mydb)...
-  mydb = cloudant.db.use(dbName);
-}
-
-//serve static file (index.html, images, css)
-app.use(express.static(__dirname + '/views'));
-
+// var tl = express.Router();
+//     tl.get('/uuu', function(req, res){
+//         res.send('llllll');
+//     });
+//     app.use(tl);
 
 
 var port = process.env.PORT || 3000
