@@ -1,7 +1,9 @@
 require('babel-register');
 var express = require("express");
 
-// var http = require("http");
+
+
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -21,6 +23,11 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 
 var app = express();
+
+
+
+
+
 
 
  var config = {
@@ -69,7 +76,6 @@ app.use('/', index);
 app.use('/admin', admins);
 
 
-
 // app.get('/', function(req, res){
 //     res.render('index', {title: 'hbs demo', author: 'chyingp223'});
 // });
@@ -95,10 +101,9 @@ app.get('/process_get', function (req, res) {
    res.end(JSON.stringify(response));
 });
 
-
-
-
  var port = process.env.PORT || 8000
 app.listen(port, function() {
     console.log("To view your app, open this link in your browser: http://localhost:" + port);
 });
+
+

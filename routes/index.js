@@ -1,65 +1,34 @@
-var express = require("express");
-
-var request = require('request');
-var swig  = require('swig');
-var React = require('react');
-var Router = require('react-router');
-var ReactDOM = require('react-dom/server');
-var compression = require('compression');
-
-
+var express = require("express"),
+	http = require('http');
+var fs = require('fs');
 var app = express();
-
-
 var router = express.Router();
-
-
-var app = express();
-
 
 router.get('/', function(req, res) {
   res.render('indexPage', { title: 'Test React run' });
 });
+
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+
+server.listen(4000);
+var count = 0;
+io.on('connection', function(socket){
+	count++;
+	console.log('User connected' + count + 'user(s) present');
+	socket.emit('users',{number:count});
+	socket.broadcast.emit('users',{number:count});
+
+	socket.on('disconnect', function(){
+	    count--;
+	    console.log('User disconnected');
+	    socket.broadcast.emit('users',{number:count});
+	});
+
+	socket.on('message',function(data){
+        socket.broadcast.emit('push message',data);
+    })
+
+});
+
 module.exports = router;
-
-
-
-
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-
-// import App from './component.jsx';
-
-// ReactDOM.render(<App />, document.getElementById('app'));
-
-
-
- // var config = {
- //     entry: './main.js',
-
- //     output: {
- //         path: __dirname,
- //         filename: 'app.js',
- //     },
-
- //     devServer: {
- //         inline: true,
- //         port: 3000
- //     },
-
- //     module: {
- //         loaders: [{
- //             test: /\.jsx?$/,
- //             exclude: /node_modules/,
- //             loader: 'babel-loader',
- //             query: {
- //                 presets: ['es2015', 'stage-0', 'react']
- //             }
- //         },
- //         ]
- //     }
-
- // };
- // module.exports = config;
-
-
