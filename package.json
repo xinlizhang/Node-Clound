@@ -9,8 +9,7 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --hot",
-    "watch": "webpack-dev-server --hot",
-    "postinstall": "bower install && gulp build"
+    "watch": "webpack-dev-server --hot"
   },
   "repository": {
     "type": "git",
