@@ -1,6 +1,6 @@
 {
   "name": "get-started-node",
-  "main": "main.js",
+  "main": "server.js",
   "description": "An introduction to developing Node.js apps on the Bluemix platform",
   "version": "0.1.1",
   "private": false,
@@ -8,8 +8,7 @@
     "node": "6.*"
   },
   "scripts": {
-    "dev": "webpack-dev-server --hot",
-    "watch": "webpack-dev-server --hot"
+    "start": "webpack-dev-server --hot"
   },
   "repository": {
     "type": "git",
