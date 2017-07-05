@@ -19,27 +19,133 @@ var _routes2 = _interopRequireDefault(_routes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// const user = {
+// 	firstName: 'Evan',
+// 	lastName: 'King'
+// };
+
+// function formatName(user) {
+// 	return user.firstName + ' ' + user.lastName;
+// }
+// function tick() {
+// 	const element = (
+// 			<div>
+// 			<h1>Hello, {formatName(user)}</h1>
+// 			<h2> It is {new Date().toLocaleTimeString()}.</h2>
+// 			</div>
+// 		);
+// 	ReactDOM.render(
+//     element,
+//     document.getElementById('root')
+//   );
+// }
+// setInterval(tick, 1000);
+
 // import React from 'react';
 // var React = require('react');
 // var Router = require('react-router');
 // var ReactDOM = require('react-dom');
 
-_reactDom2.default.render(_react2.default.createElement(_routes2.default, null), document.getElementById('app'));
-// ReactDOM.render(<routes />, document.getElementById('app'))
+function formatDate(date) {
+  return date.toLocaleDateString();
+}
 
-},{"./routes":2,"react":"react","react-dom":"react-dom","react-router":"react-router"}],2:[function(require,module,exports){
-// import React from 'react';
-// import {Route} from 'react-router';
-// import App from './components/App';
+function Avatar(props) {
+  return _react2.default.createElement('img', { className: 'Avatar',
+    src: props.user.avatarUrl,
+    title: props.user.name });
+}
+
+function UserInfo(props) {
+  return _react2.default.createElement(
+    'div',
+    { className: 'UserInfo' },
+    _react2.default.createElement(Avatar, { user: props.user }),
+    _react2.default.createElement(
+      'div',
+      { className: 'UserInfo-name' },
+      props.user.name
+    )
+  );
+}
+
+function Comment(props) {
+  return _react2.default.createElement(
+    'div',
+    { className: 'Comment' },
+    _react2.default.createElement(UserInfo, { user: props.author }),
+    _react2.default.createElement(
+      'div',
+      { className: 'Comment-text' },
+      props.text
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'Comment-date' },
+      formatDate(props.date)
+    )
+  );
+}
+
+var comment = {
+  date: new Date(),
+  text: 'I hope you enjoy learning React!!',
+  author: {
+    name: 'Hello Kitty',
+    avatarUrl: 'http://placekitten.com/g/64/64'
+  }
+};
+_reactDom2.default.render(_react2.default.createElement(Comment, {
+  date: comment.date,
+  text: comment.text,
+  author: comment.author }), document.getElementById('root'));
+
+// function Welcome(props) {
+// 	return <h1>Hello, {props.name}</h1>;
+// }
 
 
-// export default (
-//   <Route handler={App}>
-//     <Route path='/' />
-//   </Route>
+// function Bpp() {    //首字母大写
+// 	return(
+// 		<div>
+// 			<Welcome name="Evan"/>
+// 			<Welcome name="Walter"/>
+// 			<Welcome name="Jade"/>
+// 		</div>
+// 		);
+// }
+
+// ReactDOM.render(
+// 	<Bpp/>,
+// 	document.getElementById('root')    //不能加';'号
+// 	);
+
+// function Welcome(props) {
+// 	return <h1>Hello, {props.name}</h1>;
+// }
+
+
+// const element2 = <Welcome name="EvanYao"/>;
+
+
+// ReactDOM.render (
+// 	element2,
+// 	document.getElementById('app2')
+// 	);
+
+// const but = (
+// 	<button >Stop </button>
+// );
+
+// ReactDOM.render(
+//   but,
+//   document.getElementById('app1')
 // );
 
 
+// ReactDOM.render(<App />, document.getElementById('app'));
+
+},{"./routes":2,"react":"react","react-dom":"react-dom","react-router":"react-router"}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -75,7 +181,7 @@ var App = function (_React$Component) {
          return _react2.default.createElement(
             'div',
             null,
-            'hello World !!',
+            'hello World@ !!',
             _react2.default.createElement('br', null)
          );
       }
