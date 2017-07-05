@@ -1,16 +1,19 @@
-
+当前聊天人数 :<p id="count"></p>
 
 <ul id="messages"></ul>
+<div id="app2"></div>
+<div id="app1"></div>
 <div id="app"></div>
-
+<div id="root"></div>
 <script src="/js/vendor.bundle.js"></script>
 <script src="/js/bundle.js"></script>
 
 <form action="">
   <input id="message" autocomplete="off" /><button>Send</button>
 </form>
-<script src="http://localhost:4000/socket.io/socket.io.js"></script>
+<!-- <script src="http://localhost:4000/socket.io/socket.io.js"></script> -->
 <script>
+/*
     var socket = io.connect('http://localhost:4000');
     // var socket = io();
     var countObj = $('#count');
@@ -29,6 +32,7 @@
       socket.on('push message', function (data) {
         $('form').after('<p> 对方说 :' + data.text + '</p>');
       });
+      */
 </script>
 
 
