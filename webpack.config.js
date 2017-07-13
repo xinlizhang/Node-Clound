@@ -1,4 +1,8 @@
-require('babel-register');
+require('babel-register')({
+  presets: ['es2015', 'stage-0', 'react']
+});
+var injectTapEventPlugin = require('react-tap-event-plugin');
+injectTapEventPlugin();
 
 var path = require('path');
 var express = require("express");
@@ -15,9 +19,10 @@ var swig  = require('swig'); // 视图引擎
 //require('xml2js') xml 和json 互相转换
 //require('fs') 文件读写操作
 
-var routes = require('./routes');
+var routes = require('./app/main');
 var admins = require('./routes/admin');
 var index = require('./routes/index');
+
 var cfenv = require("cfenv");
 
 var cookieParser = require('cookie-parser');
@@ -38,18 +43,22 @@ module.exports = {
      },
 
      module: {
-         loaders: [{
-             test: /\.jsx?$/,
+         loaders: [
+
+         {
+             test: /\.js$/,
              exclude: /node_modules/,
              loader: 'babel-loader',
              query: {
                  presets: ['es2015', 'stage-0', 'react']
              }
-         },
+         }
+
          ]
      }
 
  };
+
 var port = process.env.PORT || 8000
 app.use(compression());  // 压缩gzip包
 app.use(logger('dev'));
@@ -65,12 +74,9 @@ app.set('view engine', 'hbs');//调用模板类型
 app.use('/', index);
 app.use('/admin', admins);
 
-
 // app.get('/', function(req, res){
 //     res.render('index', {title: 'hbs demo', author: 'chyingp223'});
 // });
-
-
 
 app.get('/site_num/:id?', function (req, res) {
  res.render('site_num', {Num: req.query.idn});
