@@ -1,11 +1,22 @@
 import React from 'react';
-import {RouteHandler} from 'react-router';
+import Paper from 'material-ui/Paper';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+const style = {
+  height: 500,
+  width: "98%",
+  margin: 20,
+  textAlign: 'center',
+  display: 'inline-block',
+};
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <RouteHandler />
+      <MuiThemeProvider>
+      <Paper style={style} zDepth={5} />
+      </MuiThemeProvider>
       </div>
     );
   }

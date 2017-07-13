@@ -1,15 +1,22 @@
 
-// import React from 'react';
-// var React = require('react');
-// var Router = require('react-router');
-// var ReactDOM = require('react-dom');
-
 import React from 'react';
 import Router from 'react-router';
 import ReactDOM from 'react-dom';
+// import createBrowserHistory from 'history/createBrowserHistory';
+import Routes from './routes';
+// import Navbar from './components/Navbar';
+// let history = createBrowserHistory();
 
-import App from './routes';
+// if(typeof window !== 'undefined') {
+	
+// 	ReactDOM.render(Routes, document.getElementById('app'))
+// 	// ReactDOM.render(
+		
+// 	// 		<Router history={history}>{routes}</Router>,
+// 	// 	 document.getElementById('app'))
+// }
 
+// import Clock from './components/titleCom';
 // const user = {
 // 	firstName: 'Evan',
 // 	lastName: 'King'
@@ -31,58 +38,74 @@ import App from './routes';
 //   );
 // }
 // setInterval(tick, 1000);
-function formatDate(date) {
-  return date.toLocaleDateString();
-}
 
-function Avatar(props) {
-  return (
-    <img className="Avatar"
-         src={props.user.avatarUrl}
-         title={props.user.name} />
-  );
-}
 
-function UserInfo(props) {
-  return (
-    <div className="UserInfo">
-      <Avatar user={props.user} />
-      <div className="UserInfo-name">
-        {props.user.name}
-      </div>
-    </div>
-  );
-}
+// ReactDOM.render(
+//   <Clock />,
+//   document.getElementById('app1')
+// );
+// if(typeof window !== 'undefined') {
+// ReactDOM.render(
+// 	<Navbar />,
+// 	document.getElementById("app")
+// 	);
+// }
 
-function Comment(props) {
-  return (
-    <div className="Comment">
-      <UserInfo user={props.author} />
-      <div className="Comment-text">
-        {props.text}
-      </div>
-      <div className="Comment-date">
-        {formatDate(props.date)}
-      </div>
-    </div>
-  );
-}
 
-const comment = {
-  date: new Date(),
-  text: 'I hope you enjoy learning React!!',
-  author: {
-    name: 'Hello Kitty',
-    avatarUrl: 'http://placekitten.com/g/64/64'
-  }
-};
-ReactDOM.render(
-  <Comment
-    date={comment.date}
-    text={comment.text}
-    author={comment.author} />,
-  document.getElementById('root')
-);
+
+
+// function formatDate(date) {
+//   return date.toLocaleDateString();
+// }
+
+// function Avatar(props) {
+//   return (
+//     <img className="Avatar"
+//          src={props.user.avatarUrl}
+//          title={props.user.name} />
+//   );
+// }
+
+// function UserInfo(props) {
+//   return (
+//     <div className="UserInfo">
+//       <Avatar user={props.user} />
+//       <div className="UserInfo-name">
+//         {props.user.name}
+//       </div>
+//     </div>
+//   );
+// }
+
+// function Comment(props) {
+//   return (
+//     <div className="Comment">
+//       <UserInfo user={props.author} />
+//       <div className="Comment-text">
+//         {props.text}
+//       </div>
+//       <div className="Comment-date">
+//         {formatDate(props.date)}
+//       </div>
+//     </div>
+//   );
+// }
+
+// const comment = {
+//   date: new Date(),
+//   text: 'I hope you enjoy learning React!!',
+//   author: {
+//     name: 'Hello Kitty',
+//     avatarUrl: 'http://placekitten.com/g/64/64'
+//   }
+// };
+// ReactDOM.render(
+//   <Comment
+//     date={comment.date}
+//     text={comment.text}
+//     author={comment.author} />,
+//   document.getElementById('root')
+// );
 
 // function Welcome(props) {
 // 	return <h1>Hello, {props.name}</h1>;
