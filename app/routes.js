@@ -13,8 +13,7 @@ import FooterBar from './components/Footer';
 import ChatBar from './components/Chat';
 import TableBar from './components/Table';
 import JsonBar from './components/reJson';
-
-
+//<FooterBar />
 if(typeof window !== 'undefined') {
 	ReactDOM.render((
 	   <HashRouter>
@@ -25,7 +24,7 @@ if(typeof window !== 'undefined') {
 		      <Route exact path="/chat" component={ChatBar} />
 		      <Route exact path="/table" component={TableBar} />
 		      <Route exact path="/json" component={JsonBar} />
-		      <FooterBar />
+		      
 	      </div>
 	   </HashRouter >
 	), document.getElementById('root'))
